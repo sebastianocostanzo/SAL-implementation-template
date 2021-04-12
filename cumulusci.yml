@@ -46,3 +46,158 @@ flows:
                 flow: sfal:hed_portal_setup_blob
             6:
                 flow: sfal:hed_data
+             
+plans:
+
+    install:
+        slug: SALImplInstall
+        title: Base Plan
+        tier: primary
+        preflight_message: This will install Salesforce Advisor Link into your org.
+        post_install_message: "Thanks for installing Advisor Link. Visit the [Advisor Link topic](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link) on the Power of Us Hub for any questions about Advisor Link."
+        error_message: "If you experience an issue with the installation, please post in the [Power of Us Hub](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link)."
+        checks:
+            - when: "'.my.' not in org_config.instance_url"
+              action: error
+              message: "My Domain must be enabled in your org before installation."
+            - when: "not tasks.check_chatter_enabled()"
+              action: error
+              message: "Chatter must be enabled in your org before installation."
+            - when: "not tasks.check_enhanced_notes_enabled()"
+              action: error
+              message: "Enhanced Notes must be enabled in your org before installation."
+        steps:
+            1:
+                flow: customer_org
+
+    config:
+        slug: config
+        title: Express Setup Configuration Plan
+        tier: secondary
+        preflight_message: This will install metadata configurations into your org.
+        post_install_message: "Thanks for installing Advisor Link. Visit the [Advisor Link topic](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link) on the Power of Us Hub for any questions about Advisor Link."
+        error_message: "If you experience an issue with the installation, please post in the [Power of Us Hub](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link)."
+        checks:
+            - when: "'.my.' not in org_config.instance_url"
+              action: error
+              message: "My Domain must be enabled in your org before installation."
+            - when: "not tasks.check_chatter_enabled()"
+              action: error
+              message: "Chatter must be enabled in your org before installation."
+            - when: "not tasks.check_enhanced_notes_enabled()"
+              action: error
+              message: "Enhanced Notes must be enabled in your org before installation."
+        steps:
+            1:
+                flow: hed_config
+                ui_options:
+                    deploy_hed_config:
+                        is_required: False
+                    deploy_hed_reports_dashboards:
+                        is_required: False
+                    deploy_hed_app_profile:
+                        is_required: False
+                    deploy_hed_plus_advisee_profile:
+                        is_required: False
+                    deploy_hed_login_advisee_profile:
+                        is_required: False
+                    deploy_hed_permission_sets:
+                        is_required: False
+                    deploy_advisor_sharing_rules:
+                        is_required: False
+                options:
+                    deploy_hed_config:
+                        unmanaged: False
+                    deploy_hed_reports_dashboards:
+                        unmanaged: False
+                    deploy_hed_app_profile:
+                        unmanaged: False
+                    deploy_hed_plus_advisee_profile:
+                        unmanaged: False
+                    deploy_hed_login_advisee_profile:
+                        unmanaged: False
+                    deploy_hed_permission_sets:
+                        unmanaged: False
+                    deploy_advisor_sharing_rules:
+                        unmanaged: False
+
+    portal:
+        slug: portal
+        title: Express Setup Sample Portal Plan
+        tier: additional
+        preflight_message: This will install a sample advisee portal into your org.
+        post_install_message: "Thanks for installing Advisor Link. Visit the [Advisor Link topic](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link) on the Power of Us Hub for any questions about Advisor Link."
+        error_message: "If you experience an issue with the installation, please post in the [Power of Us Hub](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link)."
+        checks:
+            - when: "'.my.' not in org_config.instance_url"
+              action: error
+              message: "My Domain must be enabled in your org before installation."
+            - when: "not tasks.check_chatter_enabled()"
+              action: error
+              message: "Chatter must be enabled in your org before installation."
+            - when: "not tasks.check_enhanced_notes_enabled()"
+              action: error
+              message: "Enhanced Notes must be enabled in your org before installation."
+            - when: "not tasks.check_enable_networks_enabled()"
+              action: error
+              message: "Communities must be enabled in your org before installation."
+        steps:
+            1:
+                flow: hed_portal_setup_blob
+                options:
+                    deploy_advisee_sharing_rules:
+                        unmanaged: False
+                ui_options:
+                    deploy_advisee_sharing_rules:
+                        is_required: False
+
+    data:
+        slug: data
+        title: Express Setup Sample Data Plan
+        tier: additional
+        preflight_message: This will install sample data into your org.
+        post_install_message: "Thanks for installing Advisor Link. Visit the [Advisor Link topic](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link) on the Power of Us Hub for any questions about Advisor Link."
+        error_message: "If you experience an issue with the installation, please post in the [Power of Us Hub](https://powerofus.force.com/s/topic/0TO80000000VXyzGAG/salesforce-advisor-link)."
+        checks:
+            - when: "'.my.' not in org_config.instance_url"
+              action: error
+              message: "My Domain must be enabled in your org before installation."
+            - when: "not tasks.check_chatter_enabled()"
+              action: error
+              message: "Chatter must be enabled in your org before installation."
+            - when: "not tasks.check_enhanced_notes_enabled()"
+              action: error
+              message: "Enhanced Notes must be enabled in your org before installation."
+        steps:
+            1:
+                flow: hed_data
+                ui_options:
+                    deploy_hed_data_1:
+                        is_required: False
+                    insert_hed_terms:
+                        is_required: False
+                    insert_hed_course_offerings:
+                        is_required: False
+                    deploy_hed_data_2:
+                        is_required: False
+                    upload_photo_adam:
+                        is_required: False
+                    upload_photo_sophia:
+                        is_required: False
+                    insert_hed_availability:
+                        is_required: False
+                    schedule_hed_apex_last_appt:
+                        is_required: False
+                    schedule_hed_apex_task_summary_count:
+                        is_required: False
+                options:
+                    deploy_hed_data_1:
+                        managed: True
+                    deploy_hed_data_2:
+                        managed: True
+                    insert_hed_availability:
+                        managed: True
+                    schedule_hed_apex_last_appt:
+                        managed: True
+                    schedule_hed_apex_task_summary_count:
+                        managed: True
