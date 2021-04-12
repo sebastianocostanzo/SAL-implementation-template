@@ -8,6 +8,7 @@ project:
     dependencies:
         - github: 'https://github.com/SalesforceFoundation/SAL-CumulusCI'
     git:
+        repo_url: 'https://github.com/sebastianocostanzo/SAL-implementation-template'
         default_branch: 'main'
     source_format: sfdx
 
